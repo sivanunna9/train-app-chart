@@ -1,0 +1,26 @@
+replicaCount: 2
+
+image:
+  repository: 152858030197.dkr.ecr.us-east-1.amazonaws.com/train-app
+  tag: latest
+  pullPolicy: Always
+
+
+service:
+  type: ClusterIP
+  port: 8080
+
+
+ingress:
+  enabled: true
+  className: alb
+
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+
+
+env:
+  DB_URL: jdbc:oracle:thin:@oracle-db:1521/XEPDB1
+  DB_USER: RESERVATION
+  DB_PASS: MANAGER
